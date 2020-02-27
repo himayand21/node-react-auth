@@ -2,11 +2,23 @@
 
 require('@babel/polyfill');
 
-var auth = require('./auth');
+var checkAuth = require('./checkAuth');
 
-var routes = require('./routes');
+var createSchema = require('./createSchema');
+
+var login = require('./authRoutes/login');
+
+var logout = require('./authRoutes/logout');
+
+var signup = require('./authRoutes/signup');
+
+var current = require('./authRoutes/current');
 
 module.exports = {
-  auth: auth,
-  routes: routes
+  checkAuth: checkAuth,
+  createSchema: createSchema,
+  login: login,
+  logout: logout,
+  signup: signup,
+  current: current
 };

@@ -1,0 +1,33 @@
+{
+	"name": "node-react-auth",
+	"version": "1.0.0",
+	"description": "A helper library to ease jwt authentication for node-react applications.",
+	"scripts": {
+		"clean": "rm -rf client && rm -rf server",
+		"build:client": "babel src/client --out-dir client",
+		"build:server": "babel src/server --out-dir server",
+		"build": "npm run clean && npm run build:client && npm run build:server"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/himayand21/node-react-auth.git"
+	},
+	"devDependencies": {
+		"@babel/cli": "^7.7.4",
+		"@babel/core": "^7.7.7",
+		"@babel/plugin-proposal-class-properties": "^7.7.4",
+		"@babel/preset-env": "^7.7.7",
+		"@babel/preset-react": "^7.7.4",
+		"babel-loader": "^8.0.6"
+	},
+	"dependencies": {
+		"@babel/polyfill": "^7.7.0",
+		"bcrypt-nodejs": "0.0.3",
+		"body-parser": "^1.19.0",
+		"express": "^4.17.1",
+		"jsonwebtoken": "^8.5.1",
+		"mongoose": "^5.9.2",
+		"react": "^16.12.0",
+		"validator": "^12.2.0"
+	}
+}

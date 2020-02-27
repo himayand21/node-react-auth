@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-function login(model) {
+function login(User) {
 	return router.post("/login", async (req, res, next) => {
 		try {
 			const {
@@ -15,7 +15,7 @@ function login(model) {
 					error: validationError
 				});
 			} else {
-				model.findOne({ email }, "email password tokens", (err, validUser) => {
+				User.findOne({ email }, "email password tokens", (err, validUser) => {
 					if (err) {
 						throw err;
 					}
@@ -45,6 +45,7 @@ function login(model) {
 				});
 			}
 		} catch (error) {
+			console.log(error);
 			res.status(400).send({
 				error: "Some error occured."
 			});

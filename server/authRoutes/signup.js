@@ -8,7 +8,7 @@ var router = require("express").Router();
 
 var auth = require("../checkAuth");
 
-function signup(model) {
+function signup(User) {
   return router.post("/signup",
   /*#__PURE__*/
   function () {
@@ -38,7 +38,7 @@ function signup(model) {
                   error: validationError
                 });
               } else {
-                model.findOne({
+                User.findOne({
                   email: email
                 }, "email",
                 /*#__PURE__*/

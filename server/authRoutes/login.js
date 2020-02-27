@@ -6,7 +6,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var router = require("express").Router();
 
-function login(model) {
+function login(User) {
   return router.post("/login",
   /*#__PURE__*/
   function () {
@@ -36,7 +36,7 @@ function login(model) {
                   error: validationError
                 });
               } else {
-                model.findOne({
+                User.findOne({
                   email: email
                 }, "email password tokens", function (err, validUser) {
                   if (err) {
@@ -104,17 +104,18 @@ function login(model) {
                 });
               }
 
-              _context2.next = 12;
+              _context2.next = 13;
               break;
 
             case 9:
               _context2.prev = 9;
               _context2.t0 = _context2["catch"](0);
+              console.log(_context2.t0);
               res.status(400).send({
                 error: "Some error occured."
               });
 
-            case 12:
+            case 13:
             case "end":
               return _context2.stop();
           }

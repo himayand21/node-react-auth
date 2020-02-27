@@ -20,9 +20,18 @@ function withAuth(WrappedComponent, apiRoute) {
 			try {
 				this.setState({ loading: true });
 				const { user, token } = await signupAPI(body, apiRoute);
-				this.setState({ ...initialState, user, token, message: "Signed up and logged in." });
+				this.setState({
+					user,
+					token,
+					message: "Signed up and logged in.",
+					loading: false,
+					error: null
+				});
 			} catch (error) {
-				this.setState({ ...initialState, error });
+				this.setState({
+					...initialState,
+					error
+				});
 			}
 		};
 
@@ -30,9 +39,18 @@ function withAuth(WrappedComponent, apiRoute) {
 			try {
 				this.setState({ loading: true });
 				const { user, token } = await loginAPI(body, apiRoute);
-				this.setState({ ...initialState, user, token, message: "Logged in." });
+				this.setState({
+					user,
+					token,
+					message: "Logged in.",
+					loading: false,
+					error: null
+				});
 			} catch (error) {
-				this.setState({ ...initialState, error });
+				this.setState({
+					...initialState,
+					error
+				});
 			}
 		};
 
@@ -40,19 +58,37 @@ function withAuth(WrappedComponent, apiRoute) {
 			try {
 				this.setState({ loading: true });
 				const { message } = await logoutAPI(token, allDeviceFlag, apiRoute);
-				this.setState({ ...initialState, message });
+				this.setState({
+					message,
+					token: null,
+					user: null,
+					loading: false,
+					error: null
+				});
 			} catch (error) {
-				this.setState({ ...initialState, error });
+				this.setState({
+					error,
+					loading: false
+				});
 			}
 		};
 
 		getCurrentUser = async (token) => {
 			try {
 				this.setState({ loading: true });
-				const { user } = await currentUserAPI(token, apiRoute);
-				this.setState({ ...initialState, user, message: "Fetched logged in user details." });
+				const user = await currentUserAPI(token, apiRoute);
+				this.setState({
+					user,
+					message: "Fetched logged in user details.",
+					token,
+					error: null,
+					loading: false
+				});
 			} catch (error) {
-				this.setState({ ...initialState, error });
+				this.setState({
+					error,
+					loading: false
+				});
 			}
 		}
 

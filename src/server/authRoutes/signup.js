@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const auth = require("../checkAuth");
 
-function signup(model) {
+function signup(User) {
 	return router.post("/signup", async (req, res, next) => {
 		try {
 			const {
@@ -16,7 +16,7 @@ function signup(model) {
 					error: validationError
 				})
 			} else {
-				model.findOne({ email }, "email", async (err, existingUser) => {
+				User.findOne({ email }, "email", async (err, existingUser) => {
 					if (existingUser) {
 						res.status(403).send({
 							error: "Email is already in use."

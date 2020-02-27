@@ -92,11 +92,13 @@ function withAuth(WrappedComponent, apiRoute) {
                   user = _ref2.user;
                   token = _ref2.token;
 
-                  _this.setState(_objectSpread({}, initialState, {
+                  _this.setState({
                     user: user,
                     token: token,
-                    message: "Signed up and logged in."
-                  }));
+                    message: "Signed up and logged in.",
+                    loading: false,
+                    error: null
+                  });
 
                   _context.next = 13;
                   break;
@@ -148,11 +150,13 @@ function withAuth(WrappedComponent, apiRoute) {
                   user = _ref4.user;
                   token = _ref4.token;
 
-                  _this.setState(_objectSpread({}, initialState, {
+                  _this.setState({
                     user: user,
                     token: token,
-                    message: "Logged in."
-                  }));
+                    message: "Logged in.",
+                    loading: false,
+                    error: null
+                  });
 
                   _context2.next = 13;
                   break;
@@ -203,9 +207,13 @@ function withAuth(WrappedComponent, apiRoute) {
                   _ref6 = _context3.sent;
                   message = _ref6.message;
 
-                  _this.setState(_objectSpread({}, initialState, {
-                    message: message
-                  }));
+                  _this.setState({
+                    message: message,
+                    token: null,
+                    user: null,
+                    loading: false,
+                    error: null
+                  });
 
                   _context3.next = 12;
                   break;
@@ -214,9 +222,10 @@ function withAuth(WrappedComponent, apiRoute) {
                   _context3.prev = 9;
                   _context3.t0 = _context3["catch"](0);
 
-                  _this.setState(_objectSpread({}, initialState, {
-                    error: _context3.t0
-                  }));
+                  _this.setState({
+                    error: _context3.t0,
+                    loading: false
+                  });
 
                 case 12:
                 case "end":
@@ -237,8 +246,7 @@ function withAuth(WrappedComponent, apiRoute) {
         var _ref7 = _asyncToGenerator(
         /*#__PURE__*/
         regeneratorRuntime.mark(function _callee4(token) {
-          var _ref8, user;
-
+          var user;
           return regeneratorRuntime.wrap(function _callee4$(_context4) {
             while (1) {
               switch (_context4.prev = _context4.next) {
@@ -253,31 +261,34 @@ function withAuth(WrappedComponent, apiRoute) {
                   return (0, _api.currentUserAPI)(token, apiRoute);
 
                 case 4:
-                  _ref8 = _context4.sent;
-                  user = _ref8.user;
+                  user = _context4.sent;
 
-                  _this.setState(_objectSpread({}, initialState, {
+                  _this.setState({
                     user: user,
-                    message: "Fetched logged in user details."
-                  }));
+                    message: "Fetched logged in user details.",
+                    token: token,
+                    error: null,
+                    loading: false
+                  });
 
-                  _context4.next = 12;
+                  _context4.next = 11;
                   break;
 
-                case 9:
-                  _context4.prev = 9;
+                case 8:
+                  _context4.prev = 8;
                   _context4.t0 = _context4["catch"](0);
 
-                  _this.setState(_objectSpread({}, initialState, {
-                    error: _context4.t0
-                  }));
+                  _this.setState({
+                    error: _context4.t0,
+                    loading: false
+                  });
 
-                case 12:
+                case 11:
                 case "end":
                   return _context4.stop();
               }
             }
-          }, _callee4, null, [[0, 9]]);
+          }, _callee4, null, [[0, 8]]);
         }));
 
         return function (_x5) {

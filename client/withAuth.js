@@ -47,7 +47,8 @@ var initialState = {
   user: null,
   token: null,
   error: null,
-  message: null
+  message: null,
+  loading: false
 };
 
 function withAuth(WrappedComponent, apiRoute) {
@@ -78,36 +79,42 @@ function withAuth(WrappedComponent, apiRoute) {
               switch (_context.prev = _context.next) {
                 case 0:
                   _context.prev = 0;
-                  _context.next = 3;
+
+                  _this.setState({
+                    loading: true
+                  });
+
+                  _context.next = 4;
                   return (0, _api.signupAPI)(body, apiRoute);
 
-                case 3:
+                case 4:
                   _ref2 = _context.sent;
                   user = _ref2.user;
                   token = _ref2.token;
 
                   _this.setState(_objectSpread({}, initialState, {
                     user: user,
-                    token: token
+                    token: token,
+                    message: "Signed up and logged in."
                   }));
 
-                  _context.next = 12;
+                  _context.next = 13;
                   break;
 
-                case 9:
-                  _context.prev = 9;
+                case 10:
+                  _context.prev = 10;
                   _context.t0 = _context["catch"](0);
 
                   _this.setState(_objectSpread({}, initialState, {
                     error: _context.t0
                   }));
 
-                case 12:
+                case 13:
                 case "end":
                   return _context.stop();
               }
             }
-          }, _callee, null, [[0, 9]]);
+          }, _callee, null, [[0, 10]]);
         }));
 
         return function (_x) {
@@ -128,36 +135,42 @@ function withAuth(WrappedComponent, apiRoute) {
               switch (_context2.prev = _context2.next) {
                 case 0:
                   _context2.prev = 0;
-                  _context2.next = 3;
+
+                  _this.setState({
+                    loading: true
+                  });
+
+                  _context2.next = 4;
                   return (0, _api.loginAPI)(body, apiRoute);
 
-                case 3:
+                case 4:
                   _ref4 = _context2.sent;
                   user = _ref4.user;
                   token = _ref4.token;
 
                   _this.setState(_objectSpread({}, initialState, {
                     user: user,
-                    token: token
+                    token: token,
+                    message: "Logged in."
                   }));
 
-                  _context2.next = 12;
+                  _context2.next = 13;
                   break;
 
-                case 9:
-                  _context2.prev = 9;
+                case 10:
+                  _context2.prev = 10;
                   _context2.t0 = _context2["catch"](0);
 
                   _this.setState(_objectSpread({}, initialState, {
                     error: _context2.t0
                   }));
 
-                case 12:
+                case 13:
                 case "end":
                   return _context2.stop();
               }
             }
-          }, _callee2, null, [[0, 9]]);
+          }, _callee2, null, [[0, 10]]);
         }));
 
         return function (_x2) {
@@ -178,10 +191,15 @@ function withAuth(WrappedComponent, apiRoute) {
               switch (_context3.prev = _context3.next) {
                 case 0:
                   _context3.prev = 0;
-                  _context3.next = 3;
+
+                  _this.setState({
+                    loading: true
+                  });
+
+                  _context3.next = 4;
                   return (0, _api.logoutAPI)(token, allDeviceFlag, apiRoute);
 
-                case 3:
+                case 4:
                   _ref6 = _context3.sent;
                   message = _ref6.message;
 
@@ -189,23 +207,23 @@ function withAuth(WrappedComponent, apiRoute) {
                     message: message
                   }));
 
-                  _context3.next = 11;
+                  _context3.next = 12;
                   break;
 
-                case 8:
-                  _context3.prev = 8;
+                case 9:
+                  _context3.prev = 9;
                   _context3.t0 = _context3["catch"](0);
 
                   _this.setState(_objectSpread({}, initialState, {
                     error: _context3.t0
                   }));
 
-                case 11:
+                case 12:
                 case "end":
                   return _context3.stop();
               }
             }
-          }, _callee3, null, [[0, 8]]);
+          }, _callee3, null, [[0, 9]]);
         }));
 
         return function (_x3, _x4) {
@@ -226,34 +244,40 @@ function withAuth(WrappedComponent, apiRoute) {
               switch (_context4.prev = _context4.next) {
                 case 0:
                   _context4.prev = 0;
-                  _context4.next = 3;
+
+                  _this.setState({
+                    loading: true
+                  });
+
+                  _context4.next = 4;
                   return (0, _api.currentUserAPI)(token, apiRoute);
 
-                case 3:
+                case 4:
                   _ref8 = _context4.sent;
                   user = _ref8.user;
 
                   _this.setState(_objectSpread({}, initialState, {
-                    user: user
+                    user: user,
+                    message: "Fetched logged in user details."
                   }));
 
-                  _context4.next = 11;
+                  _context4.next = 12;
                   break;
 
-                case 8:
-                  _context4.prev = 8;
+                case 9:
+                  _context4.prev = 9;
                   _context4.t0 = _context4["catch"](0);
 
                   _this.setState(_objectSpread({}, initialState, {
                     error: _context4.t0
                   }));
 
-                case 11:
+                case 12:
                 case "end":
                   return _context4.stop();
               }
             }
-          }, _callee4, null, [[0, 8]]);
+          }, _callee4, null, [[0, 9]]);
         }));
 
         return function (_x5) {
@@ -268,18 +292,11 @@ function withAuth(WrappedComponent, apiRoute) {
     _createClass(_temp, [{
       key: "render",
       value: function render() {
-        var _this$state = this.state,
-            user = _this$state.user,
-            error = _this$state.error,
-            token = _this$state.token;
-        return _react["default"].createElement(WrappedComponent, _extends({}, this.props, {
+        return _react["default"].createElement(WrappedComponent, _extends({}, this.props, this.state, {
           login: this.login,
           logout: this.logout,
           signup: this.signup,
-          getCurrentUser: this.getCurrentUser,
-          user: user,
-          error: error,
-          token: token
+          getCurrentUser: this.getCurrentUser
         }));
       }
     }]);

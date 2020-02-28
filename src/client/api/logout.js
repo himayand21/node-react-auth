@@ -3,7 +3,6 @@ export const logoutAPI = async (
 	allDeviceFlag,
 	apiRoute
 ) => {
-	console.log(allDeviceFlag);
 	const response = await fetch(`${apiRoute}/logout`, {
 		method: 'POST',
 		body: JSON.stringify({

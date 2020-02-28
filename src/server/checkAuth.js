@@ -14,24 +14,36 @@ function checkAuth(User) {
 				})
 			} else {
 				const token = header.split(' ')[1];
-				const data = jwt.verify(token, process.env.JWT_KEY);
-				const user = await User.findOne({ _id: data._id, 'tokens.token': token });
-				if (!user) {
-					res.status(401).send({
-						error: {
-							message: 'You are not authorized to access this information.',
-							key: "token_mismatch",
-							status: 401
-						}
-					});
-				} else {
-					req.user = {
-						email: user.email,
-						id: user._id
-					};
-					req.token = token;
-					next();
-				}
+				jwt.verify(token, process.env.JWT_KEY, (err, decoded) => {
+					if (err) {
+						res.status(401).send({
+							error: {
+								message: 'You are not authorized to access this information.',
+								key: "token_mismatch",
+								status: 401
+							}
+						});
+					} else {
+						User.findOne({ _id: decoded._id, 'tokens.token': token }, "email _id", (err, user) => {
+							if (err || !user) {
+								res.status(401).send({
+									error: {
+										message: 'Token might have expired in a previous session.',
+										key: "token_expired",
+										status: 401
+									}
+								});
+							} else {
+								req.user = {
+									email: user.email,
+									id: user._id
+								};
+								req.token = token;
+								next();
+							}
+						});
+					}
+				});
 			}
 		} catch (error) {
 			res.status(500).send({

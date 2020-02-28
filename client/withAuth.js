@@ -51,9 +51,10 @@ var initialState = {
   loading: false
 };
 
-function withAuth(WrappedComponent, apiRoute) {
+function withAuth(WrappedComponent) {
   var _temp;
 
+  var apiRoute = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "";
   return _temp =
   /*#__PURE__*/
   function (_Component) {

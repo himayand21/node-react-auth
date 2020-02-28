@@ -9,7 +9,7 @@ const initialState = {
 	loading: false
 };
 
-function withAuth(WrappedComponent, apiRoute) {
+function withAuth(WrappedComponent, apiRoute = "") {
 	return class extends Component {
 		constructor(props) {
 			super(props);

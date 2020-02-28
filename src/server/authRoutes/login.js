@@ -3,16 +3,25 @@ const router = require("express").Router();
 function login(User) {
 	return router.post("/login", async (req, res, next) => {
 		try {
-			const {
-				body: { email, password }
-			} = req;
+			const { body } = req;
+			const bodyKeys = Object.keys(body);
 
+			if (!bodyKeys.includes('email') || !bodyKeys.includes('password')) {
+				throw ({
+					status: 400,
+					message: "Missing email/password key in request.",
+					key: "missing_email_password_key"
+				})
+			}
+
+			const { email, password } = body;
 			const user = new User({ email, password });
 
 			const validationError = await user.validateUser();
 			if (validationError) {
-				res.status(401).send({
-					error: validationError
+				throw ({
+					status: 422,
+					...validationError
 				});
 			} else {
 				User.findOne({ email }, "email password tokens", (err, validUser) => {
@@ -20,14 +29,21 @@ function login(User) {
 						throw err;
 					}
 					if (!validUser) {
-						res.status(401).send({
-							error: "Login failed! Email is not registered."
+						throw ({
+							status: 401,
+							message: "Login failed! Email is not registered.",
+							key: "email_not_registered"
 						});
 					} else {
 						validUser.comparePassword(password, async (err, isMatch) => {
+							if (err) {
+								throw err;
+							}
 							if (!isMatch) {
-								res.status(401).send({
-									error: "Login failed! Password does not match."
+								throw ({
+									status: 401,
+									message: "Login failed! Password does not match.",
+									key: "password_mismatch"
 								});
 							} else {
 								const token = await validUser.generateAuthToken();
@@ -45,10 +61,17 @@ function login(User) {
 				});
 			}
 		} catch (error) {
-			console.log(error);
-			res.status(400).send({
-				error: "Some error occured."
-			});
+			if (error.key) {
+				res.status(error.status).send({ error });
+			} else {
+				res.status(500).send({
+					error: {
+						key: "server_error",
+						message: "Some error occured.",
+						status: 500
+					}
+				});
+			}
 		}
 	});
 }

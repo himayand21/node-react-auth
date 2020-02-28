@@ -8,7 +8,11 @@ function checkAuth(User) {
 			const data = jwt.verify(token, process.env.JWT_KEY);
 			const user = await User.findOne({ _id: data._id, 'tokens.token': token });
 			if (!user) {
-				throw new Error();
+				throw ({
+					message: 'You are not authorized to access this information.',
+					key: "token_mismatch",
+					status: 401
+				});
 			}
 			req.user = {
 				email: user.email,
@@ -17,9 +21,17 @@ function checkAuth(User) {
 			req.token = token;
 			next();
 		} catch (error) {
-			res.status(401).send({
-				error: 'You are not authorized to access this information.'
-			});
+			if (error.key) {
+				res.status(error.status).send({ error });
+			} else {
+				res.status(500).send({
+					error: {
+						key: "server_error",
+						message: "Some error occured.",
+						status: 500
+					}
+				});
+			}
 		}
 	}
 }

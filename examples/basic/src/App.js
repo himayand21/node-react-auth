@@ -42,6 +42,9 @@ class App extends Component {
 	handleLogout = () => {
 		this.props.logout(this.state.token);
 	}
+	handleAllDeviceLogout = () => {
+		this.props.logout(this.state.token, true);
+	}
 
 	render() {
 		return (

@@ -11,7 +11,6 @@ function logout(model) {
 			} = req;
 
 			model.findById(user.id, "tokens", async (err, loggedInUser) => {
-				if (err) throw err;
 				if (allDevices) {
 					loggedInUser.tokens = [];
 					await loggedInUser.save();

@@ -7,10 +7,12 @@ function login(User) {
 			const bodyKeys = Object.keys(body);
 
 			if (!bodyKeys.includes('email') || !bodyKeys.includes('password')) {
-				throw ({
-					status: 400,
-					message: "Missing email/password key in request.",
-					key: "missing_email_password_key"
+				res.status(400).send({
+					error: {
+						status: 400,
+						message: "Missing email/password key in request.",
+						key: "missing_email_password_key"
+					}
 				})
 			}
 
@@ -19,31 +21,31 @@ function login(User) {
 
 			const validationError = await user.validateUser();
 			if (validationError) {
-				throw ({
-					status: 422,
-					...validationError
-				});
+				res.status(422).send({
+					error: {
+						status: 422,
+						...validationError
+					}
+				})
 			} else {
 				User.findOne({ email }, "email password tokens", (err, validUser) => {
-					if (err) {
-						throw err;
-					}
 					if (!validUser) {
-						throw ({
-							status: 401,
-							message: "Login failed! Email is not registered.",
-							key: "email_not_registered"
+						res.status(401).send({
+							error: {
+								status: 401,
+								message: "Login failed! Email is not registered.",
+								key: "email_not_registered"
+							}
 						});
 					} else {
 						validUser.comparePassword(password, async (err, isMatch) => {
-							if (err) {
-								throw err;
-							}
 							if (!isMatch) {
-								throw ({
-									status: 401,
-									message: "Login failed! Password does not match.",
-									key: "password_mismatch"
+								res.status(401).send({
+									error: {
+										status: 401,
+										message: "Login failed! Password does not match.",
+										key: "password_mismatch"
+									}
 								});
 							} else {
 								const token = await validUser.generateAuthToken();
@@ -61,17 +63,13 @@ function login(User) {
 				});
 			}
 		} catch (error) {
-			if (error.key) {
-				res.status(error.status).send({ error });
-			} else {
-				res.status(500).send({
-					error: {
-						key: "server_error",
-						message: "Some error occured.",
-						status: 500
-					}
-				});
-			}
+			res.status(500).send({
+				error: {
+					key: "server_error",
+					message: "Some error occured.",
+					status: 500
+				}
+			});
 		}
 	});
 }

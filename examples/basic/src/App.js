@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import { withAuth } from '../../../client';
+import { withAuth } from '../../../src/client';
 import './App.css';
 
 class App extends Component {

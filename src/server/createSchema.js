@@ -69,19 +69,31 @@ function createUserSchema(db) {
 			isLength
 		} = validator;
 		if (isEmpty(email) || isEmpty(password)) {
-			return "You must provide an email and password.";
+			return ({
+				key: "missing_email_password",
+				message: "You must provide an email and password."
+			});
 		}
 		if (!isEmail(email)) {
-			return "Email address is invalid."
+			return ({
+				key: "invalid_email",
+				message: "Email address is invalid."
+			});
 		}
 		if (!isLength(password, {
 			min: 7,
 			max: 16
 		})) {
-			return "Password must contain 7 to 16 characters."
+			return ({
+				key: "unexpected_password_length",
+				message: "Password must contain 7 to 16 characters."
+			});
 		}
 		if (isAlphanumeric(password)) {
-			return "Password must contain some special character."
+			return ({
+				key: "missing_special_character",
+				message: "Password must contain some special character."
+			});
 		}
 	}
 	const User = db.model('User', UserSchema);

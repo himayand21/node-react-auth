@@ -28,9 +28,13 @@ function logout(model) {
 				}
 			});
 		} catch (error) {
-			res.status(400).send({
-				error: "Some error occured"
-			})
+			res.status(500).send({
+				error: {
+					key: "server_error",
+					message: "Some error occured.",
+					status: 500
+				}
+			});
 		}
 	});
 }

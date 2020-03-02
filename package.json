@@ -12,6 +12,23 @@
 		"type": "git",
 		"url": "git+https://github.com/himayand21/node-react-auth.git"
 	},
+	"keywords": [
+		"react",
+		"react-dom",
+		"express",
+		"nodejs",
+		"mongoose",
+		"mongo",
+		"jwt",
+		"jsonwebtoken",
+		"auth",
+		"node"
+	],
+	"author": "Himayan Debnath",
+	"bugs": {
+		"url": "https://github.com/himayand21/node-react-auth/issues"
+	},
+	"homepage": "https://github.com/himayand21/node-react-auth#readme",
 	"devDependencies": {
 		"@babel/cli": "^7.7.4",
 		"@babel/core": "^7.7.7",

@@ -94,7 +94,6 @@ The library provides a ```withAuth``` higher order component which injects a few
 | login | function | An api call to login the user. |
 | getCurrentUser | function | An api call to get information about the logged in user. |
 
-
 #### Parameter Configuration
 
 | Functions | Parameters | Explanation |
@@ -102,10 +101,10 @@ The library provides a ```withAuth``` higher order component which injects a few
 | withAuth | Component | The Component into which the props would be injected. |
 | | apiRoute | The root route where the auth routes are generated in express (in this case - ```/user```). |
 | signup | body | ```{email: "test7@gmail.com", password: "secret@key"}``` |
-| logout | token | The token sent back to frontend after successful authentication. |
+| logout | token | Authentication token of logged in user. |
 | | allDeviceFlag | A flag, if sent as true, would remove all existing tokens for the user. |
 | login | body | ```{email: "test7@gmail.com", password: "secret@key"}``` |
-| getCurrentUser | token | The token sent back to frontend after successful authentication. |
+| getCurrentUser | token | Authentication token of logged in user. |
 
 
 #### :smiling_imp: Show me the CODE

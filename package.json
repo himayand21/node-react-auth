@@ -1,6 +1,6 @@
 {
 	"name": "node-react-auth",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "A helper library to ease jwt authentication for node-react applications.",
 	"scripts": {
 		"clean": "rm -rf client && rm -rf server",

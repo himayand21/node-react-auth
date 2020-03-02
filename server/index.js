@@ -4,21 +4,24 @@ require('@babel/polyfill/noConflict');
 
 var checkAuth = require('./checkAuth');
 
-var createSchema = require('./createSchema');
+var createSchema = require('./createSchema'); // const login = require('./authRoutes/login');
+// const logout = require('./authRoutes/logout');
+// const signup = require('./authRoutes/signup');
+// const current = require('./authRoutes/current');
 
-var login = require('./authRoutes/login');
 
-var logout = require('./authRoutes/logout');
+var createAuth = require('./authRoutes'); // function createAuth(model) {
+// 	return (
+// 		app.use(current(model)),
+// 		app.use(login(model)),
+// 		app.use(logout(model)),
+// 		app.use(signup(model))
+// 	)
+// }
 
-var signup = require('./authRoutes/signup');
-
-var current = require('./authRoutes/current');
 
 module.exports = {
   checkAuth: checkAuth,
   createSchema: createSchema,
-  login: login,
-  logout: logout,
-  signup: signup,
-  current: current
+  createAuth: createAuth
 };

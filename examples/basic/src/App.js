@@ -50,27 +50,32 @@ class App extends Component {
 		return (
 			<div className="app-block">
 				<div className="container">
-					<div className="row">
-						<div className="label">
-							Email
-						</div>
-						<div className="value">
-							<input onChange={this.handleEmailChange} />
-						</div>
-					</div>
-					<div className="row">
-						<div className="label">
-							Password
-						</div>
-						<div className="value">
-							<input onChange={this.handlePasswordChange} />
-						</div>
-					</div>
+					{this.state.token ? null :
+						<Fragment>
+							<div className="row">
+								<div className="label">
+									Email
+								</div>
+								<div className="value">
+									<input onChange={this.handleEmailChange} />
+								</div>
+							</div>
+							<div className="row">
+								<div className="label">
+									Password
+								</div>
+								<div className="value">
+									<input onChange={this.handlePasswordChange} />
+								</div>
+							</div>
+						</Fragment>
+					}
 					<div className="row">
 						{this.state.token ?
 							<Fragment>
 								<button onClick={this.handleCurrentUser}>Current User</button>
 								<button onClick={this.handleLogout}>Log out</button>
+								<button onClick={this.handleAllDeviceLogout}>Log out from all devices</button>
 							</Fragment> :
 							<Fragment>
 								<button onClick={this.handleSignup}>Sign up</button>

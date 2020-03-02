@@ -12,10 +12,8 @@ mongoose.Promise = global.Promise;
 
 const {
 	createSchema,
-	current,
-	login,
-	logout,
-	signup
+	checkAuth,
+	createAuth
 } = server;
 
 const app = express();
@@ -39,10 +37,12 @@ app.listen(PORT, () => {
 app.use(express.static(__dirname + "/build"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use('/user', current(model));
-app.use('/user', login(model));
-app.use('/user', logout(model));
-app.use('/user', signup(model));
+app.use('/user', createAuth(model));
+app.use('/some', checkAuth(model), (req, res, next) => {
+	res.status(200).send({
+		"auth": "success"
+	})
+})
 
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname + "/build/index.html"))

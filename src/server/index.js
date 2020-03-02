@@ -1,16 +1,11 @@
 require('@babel/polyfill/noConflict');
+
 const checkAuth = require('./checkAuth');
 const createSchema = require('./createSchema');
-const login = require('./authRoutes/login');
-const logout = require('./authRoutes/logout');
-const signup = require('./authRoutes/signup');
-const current = require('./authRoutes/current');
+const createAuth = require('./authRoutes');
 
 module.exports = {
 	checkAuth,
 	createSchema,
-	login,
-	logout,
-	signup,
-	current
+	createAuth
 };

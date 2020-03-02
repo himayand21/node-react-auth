@@ -1,4 +1,5 @@
 # node-react-auth
+
 A helper library to ease jwt authentication for ```node-react``` applications.\
 Almost all applications require an **authentication service** and at some point of time, it feels **repititive** to do the same thing over and over again.\
 For applications using **Node-Express-MongoDB-React**, this library would help you create an authentication launchpad with minimum manual configurations.
@@ -30,7 +31,7 @@ The library provides a few handlers for configuring your express server.
 - **checkAuth** - This middleware is a reusable function which can be used to ensure that the user is authorized.
 - **createAuth** - This function generates ```"/signup"```, ```"/login"```, ```"/current"``` and ```"/logout"``` routes.
 
-#### Show me the CODE
+#### :smiling_imp: Show me the CODE
 ```
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -79,7 +80,7 @@ app.use('/some', checkAuth(model), (req, res, next) => {
 Let's jump into the **React** side of things.\
 The library provides a ```withAuth``` higher order component which injects a few helpful props into the component passed.
 
-- **List of Props**
+#### List of Props
 
 | Props | PropTypes | What does it do? |
 | ------ | ------ | ----- |
@@ -93,7 +94,8 @@ The library provides a ```withAuth``` higher order component which injects a few
 | login | function | An api call to login the user. |
 | getCurrentUser | function | An api call to get information about the logged in user. |
 
-- **Parameter Configuration**
+
+#### Parameter Configuration
 
 | Functions | Parameters | Explanation |
 | ------ | ------ | ----- |
@@ -105,7 +107,8 @@ The library provides a ```withAuth``` higher order component which injects a few
 | login | body | ```{email: "test7@gmail.com", password: "secret@key"}``` |
 | getCurrentUser | token | The token sent back to frontend after successful authentication. |
 
-**Show me the CODE**
+
+#### :smiling_imp: Show me the CODE
 
 ```
 import React, { Component } from 'react';

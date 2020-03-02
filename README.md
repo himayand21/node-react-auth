@@ -23,7 +23,7 @@ Add this file in ```.gitignore``` and configure your deployment server to host `
 - [Netlify](https://docs.netlify.com/configure-builds/environment-variables)
 
 
-### Step #2
+### Step #2 - [Skip to Code](https://github.com/himayand21/node-react-auth/blob/doc/readme/README.md#smiling_imp-show-me-the-code)
 
 The library provides a few handlers for configuring your express server.
 
@@ -75,7 +75,7 @@ app.use('/some', checkAuth(model), (req, res, next) => {
 
 ```
 
-### Step #3
+### Step #3 - [Skip to Code](https://github.com/himayand21/node-react-auth/blob/doc/readme/README.md#smiling_imp-show-me-the-code-1)
 
 Let's jump into the **React** side of things.\
 The library provides a ```withAuth``` higher order component which injects a few helpful props into the component passed.

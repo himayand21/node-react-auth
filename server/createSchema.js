@@ -4,7 +4,7 @@ var mongoose = require("mongoose");
 
 var validator = require("validator");
 
-var bcrypt = require("bcrypt-nodejs");
+var bcrypt = require("bcryptjs");
 
 var jwt = require("jsonwebtoken");
 

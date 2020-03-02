@@ -16,7 +16,8 @@ Create a ```.env``` file and store the JSON web token like -
 
 ```JWT_KEY=ReplaceThisWithYourOwnJSONKey```
 
-Add this file in ```.gitignore``` and configure your deployment server to host ```JWT_KEY``` as an environment variable.
+Add this file in ```.gitignore``` and configure your deployment server to host ```JWT_KEY``` as an environment variable.\
+**TIP -** Use ```env-cmd -f .env``` in your ```package.json``` for hosting environment variables in local.
 
 ##### Refer these docs if you are using Netlify or Heroku to host your website -
 - [Heroku](https://devcenter.heroku.com/articles/config-vars)

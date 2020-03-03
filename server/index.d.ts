@@ -2,8 +2,8 @@
 
 
 declare namespace server {
-    function createSchema(db: object): object;
-	function checkAuth(User: object): any;
-	function createAuth(Model: object): any[];
+    export function createSchema(db: object): object;
+	export function checkAuth(User: object): any;
+	export function createAuth(Model: object): any[];
 }
 

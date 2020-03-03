@@ -8,7 +8,6 @@
 		"build:server": "babel src/server --out-dir server",
 		"build": "npm run clean && npm run build:client && npm run build:server"
 	},
-	"main": "server/index.js",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/himayand21/node-react-auth.git"

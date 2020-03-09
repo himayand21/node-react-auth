@@ -5,13 +5,13 @@ function logout(model) {
 	return router.post('/logout', auth(model), async (req, res) => {
 		try {
 			const {
-				body: { allDevices },
+				body,
 				user,
 				token
 			} = req;
 
 			model.findById(user.id, "tokens", async (err, loggedInUser) => {
-				if (allDevices) {
+				if (body && body.allDevices) {
 					loggedInUser.tokens = [];
 					await loggedInUser.save();
 					res.status(200).send({

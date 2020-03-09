@@ -14,53 +14,53 @@ function login(User) {
 						key: "missing_email_password_key"
 					}
 				})
-			}
-
-			const { email, password } = body;
-			const user = new User({ email, password });
-
-			const validationError = await user.validateUser();
-			if (validationError) {
-				res.status(422).send({
-					error: {
-						status: 422,
-						...validationError
-					}
-				})
 			} else {
-				User.findOne({ email }, "email password tokens", (err, validUser) => {
-					if (!validUser) {
-						res.status(401).send({
-							error: {
-								status: 401,
-								message: "Login failed! Email is not registered.",
-								key: "email_not_registered"
-							}
-						});
-					} else {
-						validUser.comparePassword(password, async (err, isMatch) => {
-							if (!isMatch) {
-								res.status(401).send({
-									error: {
-										status: 401,
-										message: "Login failed! Password does not match.",
-										key: "password_mismatch"
-									}
-								});
-							} else {
-								const token = await validUser.generateAuthToken();
-								await validUser.save();
-								res.status(200).send({
-									user: {
-										email: validUser.email,
-										id: validUser._id,
-									},
-									token
-								});
-							}
-						});
-					}
-				});
+				const { email, password } = body;
+				const user = new User({ email, password });
+
+				const validationError = await user.validateUser();
+				if (validationError) {
+					res.status(422).send({
+						error: {
+							status: 422,
+							...validationError
+						}
+					})
+				} else {
+					User.findOne({ email }, "email password tokens", (err, validUser) => {
+						if (!validUser) {
+							res.status(401).send({
+								error: {
+									status: 401,
+									message: "Login failed! Email is not registered.",
+									key: "email_not_registered"
+								}
+							});
+						} else {
+							validUser.comparePassword(password, async (err, isMatch) => {
+								if (!isMatch) {
+									res.status(401).send({
+										error: {
+											status: 401,
+											message: "Login failed! Password does not match.",
+											key: "password_mismatch"
+										}
+									});
+								} else {
+									const token = await validUser.generateAuthToken();
+									await validUser.save();
+									res.status(200).send({
+										user: {
+											email: validUser.email,
+											id: validUser._id,
+										},
+										token
+									});
+								}
+							});
+						}
+					});
+				}
 			}
 		} catch (error) {
 			res.status(500).send({

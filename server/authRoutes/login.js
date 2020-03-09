@@ -28,25 +28,31 @@ function login(User) {
               body = req.body;
               bodyKeys = Object.keys(body);
 
-              if (!bodyKeys.includes('email') || !bodyKeys.includes('password')) {
-                res.status(400).send({
-                  error: {
-                    status: 400,
-                    message: "Missing email/password key in request.",
-                    key: "missing_email_password_key"
-                  }
-                });
+              if (!(!bodyKeys.includes('email') || !bodyKeys.includes('password'))) {
+                _context2.next = 7;
+                break;
               }
 
+              res.status(400).send({
+                error: {
+                  status: 400,
+                  message: "Missing email/password key in request.",
+                  key: "missing_email_password_key"
+                }
+              });
+              _context2.next = 13;
+              break;
+
+            case 7:
               email = body.email, password = body.password;
               user = new User({
                 email: email,
                 password: password
               });
-              _context2.next = 8;
+              _context2.next = 11;
               return user.validateUser();
 
-            case 8:
+            case 11:
               validationError = _context2.sent;
 
               if (validationError) {
@@ -128,11 +134,12 @@ function login(User) {
                 });
               }
 
-              _context2.next = 15;
+            case 13:
+              _context2.next = 18;
               break;
 
-            case 12:
-              _context2.prev = 12;
+            case 15:
+              _context2.prev = 15;
               _context2.t0 = _context2["catch"](0);
               res.status(500).send({
                 error: {
@@ -142,12 +149,12 @@ function login(User) {
                 }
               });
 
-            case 15:
+            case 18:
             case "end":
               return _context2.stop();
           }
         }
-      }, _callee2, null, [[0, 12]]);
+      }, _callee2, null, [[0, 15]]);
     }));
 
     return function (_x, _x2, _x3) {

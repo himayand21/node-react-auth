@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 
-import { withAuth } from '../../../src/client';
+import { withAuth } from '../../../client';
 import './App.css';
 
 class App extends Component {
@@ -57,7 +57,7 @@ class App extends Component {
 									Email
 								</div>
 								<div className="value">
-									<input onChange={this.handleEmailChange} />
+									<input onChange={this.handleEmailChange} value={this.state.email} />
 								</div>
 							</div>
 							<div className="row">
@@ -65,7 +65,7 @@ class App extends Component {
 									Password
 								</div>
 								<div className="value">
-									<input onChange={this.handlePasswordChange} />
+									<input onChange={this.handlePasswordChange} value={this.state.password} />
 								</div>
 							</div>
 						</Fragment>

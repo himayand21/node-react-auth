@@ -14,43 +14,42 @@ function signup(User) {
 						key: "missing_email_password_key"
 					}
 				})
-			}
-
-			const { email, password } = body;
-			const user = new User({ email, password });
-
-			const validationError = await user.validateUser();
-			if (validationError) {
-				res.status(422).send({
-					error: {
-						status: 422,
-						...validationError
-					}
-				})
 			} else {
-				User.findOne({ email }, "email", async (err, existingUser) => {
-					if (existingUser) {
-						res.status(409).send({
-							error: {
-								status: 409,
-								message: "Email is already in use.",
-								key: "email_in_use"
-							}
-						});
-					} else {
-						const token = await user.generateAuthToken();
-						await user.save();
-						res.status(200).send({
-							user: {
-								email: user.email,
-								id: user._id
-							},
-							token
-						});
-					}
-				});
-			}
+				const { email, password } = body;
+				const user = new User({ email, password });
 
+				const validationError = await user.validateUser();
+				if (validationError) {
+					res.status(422).send({
+						error: {
+							status: 422,
+							...validationError
+						}
+					})
+				} else {
+					User.findOne({ email }, "email", async (err, existingUser) => {
+						if (existingUser) {
+							res.status(409).send({
+								error: {
+									status: 409,
+									message: "Email is already in use.",
+									key: "email_in_use"
+								}
+							});
+						} else {
+							const token = await user.generateAuthToken();
+							await user.save();
+							res.status(200).send({
+								user: {
+									email: user.email,
+									id: user._id
+								},
+								token
+							});
+						}
+					});
+				}
+			}
 		} catch (error) {
 			res.status(500).send({
 				error: {

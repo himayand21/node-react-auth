@@ -1,0 +1,7 @@
+{
+	"name": "node-react-auth-server",
+	"version": "1.0.1",
+	"description": "Server of node-react-auth",
+	"main": "./index.js",
+	"types": "./index.d.ts"
+}

@@ -1,0 +1,7 @@
+{
+	"name": "node-react-auth-client",
+	"version": "1.0.1",
+	"description": "React side of node-react-auth",
+	"main": "./index.js",
+	"types": "./index.d.ts"
+}
